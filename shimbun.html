@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>気学鑑定新聞とは ｜ 気学プラットフォーム</title>
+<meta name="description" content="あなたの本命星に合わせた『今日の運勢・吉方・開運のヒント』を毎朝5時にお届け。2026年8月1日サービス開始予定の開運サポート新聞です。">
+<style>
+  :root{
+    --paper:#faf8f2; --paper-warm:#f4efe3; --card:#fffdf8;
+    --ink:#2a2622; --ink-soft:#5b544a; --ink-faint:#8a8172;
+    --line:#e0d7c4; --line-soft:#ece5d6;
+    --green:#5f7d4f; --green-deep:#3e5636; --green-soft:#eef2e6; --green-line:#cdd8bd;
+    --gold:#b18f47; --gold-soft:#c9ad6e; --gold-faint:#e7dcc2; --gold-deep:#8f7233;
+    --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;
+    --gothic:"Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--gothic); line-height:1.8;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  a{color:inherit; text-decoration:none;}
+  .serif{font-family:var(--serif);}
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background-image:radial-gradient(rgba(150,135,100,.05) 1px,transparent 1px);
+    background-size:4px 4px;
+  }
+  .page{position:relative; z-index:1;}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(250,248,242,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .bar{max-width:1180px; margin:0 auto; padding:12px 22px; display:flex; align-items:center; gap:18px;}
+  .brand{display:flex; align-items:center; gap:11px;}
+  .brand .rose{width:38px; height:38px; flex-shrink:0;}
+  .brand .name{font-family:var(--serif); font-size:20px; letter-spacing:.1em; line-height:1.2;}
+  .brand .name small{display:block; font-family:var(--gothic); font-size:9.5px; letter-spacing:.34em; color:var(--gold); font-weight:600; margin-top:2px;}
+  nav.main{display:flex; align-items:center; gap:26px; margin-left:24px;}
+  nav.main a{font-size:13.5px; letter-spacing:.05em; color:var(--ink-soft); padding:6px 0; position:relative;}
+  nav.main a.on{color:var(--ink);}
+  nav.main a.on::after{content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--gold);}
+  nav.main a:hover{color:var(--ink);}
+  .actions{margin-left:auto; display:flex; align-items:center; gap:10px;}
+  .btn-ghost{font-size:12.5px; letter-spacing:.05em; padding:9px 16px; border-radius:999px; border:1px solid var(--line); color:var(--ink-soft); background:transparent; cursor:pointer;}
+  .btn-ghost:hover{border-color:var(--gold-soft); color:var(--ink);}
+  .btn-solid{font-size:12.5px; letter-spacing:.05em; padding:9px 17px; border-radius:999px; color:#fff; background:linear-gradient(135deg,var(--green),var(--green-deep)); border:none; cursor:pointer; box-shadow:0 4px 12px rgba(62,86,54,.22);}
+  .btn-solid:hover{filter:brightness(1.05);}
+
+  /* ---------- breadcrumb ---------- */
+  .crumb{max-width:1180px; margin:0 auto; padding:14px 22px 0; font-size:12px; color:var(--ink-faint); letter-spacing:.04em;}
+  .crumb a:hover{color:var(--green-deep);}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; max-width:1180px; margin:0 auto; padding:34px 22px 20px;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:36px; align-items:center;}
+  .hero-copy .eyebrow{font-family:var(--serif); font-size:clamp(16px,2.2vw,21px); letter-spacing:.08em; color:var(--green-deep); margin:0 0 6px;}
+  .hero-copy h1{font-family:var(--serif); font-weight:600; font-size:clamp(42px,7vw,74px); letter-spacing:.08em; line-height:1.18; margin:0; color:var(--ink);}
+  .hero-copy h1 .q{color:var(--gold); }
+  .hero-copy .rule{width:150px; height:1px; background:var(--gold-soft); margin:18px 0;}
+  .hero-copy p.lead{font-size:14.5px; color:var(--ink-soft); letter-spacing:.02em; margin:0; max-width:30em; line-height:1.95;}
+  .hero-visual{position:relative; display:flex; justify-content:center;}
+  /* newspaper illustration */
+  .paper-art{width:min(360px,80%); filter:drop-shadow(0 18px 34px rgba(90,78,50,.18));}
+  .badge{
+    position:absolute; right:2%; bottom:-6%; width:118px; height:118px; border-radius:50%;
+    background:radial-gradient(circle at 50% 30%, #fbf4e2, #f0e4c6);
+    border:1.5px solid var(--gold-soft); color:var(--gold-deep);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    box-shadow:0 10px 24px rgba(140,110,50,.24); font-family:var(--serif);
+  }
+  .badge .y{font-size:11px; letter-spacing:.08em;}
+  .badge .d{font-size:20px; font-weight:600; letter-spacing:.04em; line-height:1.1; margin:1px 0 2px;}
+  .badge .s{font-size:9.5px; letter-spacing:.04em; font-family:var(--gothic);}
+
+  /* ---------- section frame ---------- */
+  section.block{max-width:1080px; margin:0 auto; padding:60px 22px 0;}
+  .head{text-align:center; margin-bottom:38px;}
+  .head h2{font-family:var(--serif); font-size:clamp(22px,3.2vw,30px); letter-spacing:.1em; margin:0; display:inline-flex; align-items:center; gap:16px;}
+  .head h2::before,.head h2::after{content:""; width:34px; height:1px; background:var(--gold-soft);}
+
+  /* ---------- 5 contents ---------- */
+  .five{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
+  .fc{text-align:center; padding:22px 12px; border-radius:14px; background:var(--card); border:1px solid var(--line-soft);}
+  .fc .ic{width:56px; height:56px; margin:0 auto 12px; border-radius:50%; background:var(--green-soft); border:1px solid var(--green-line); display:flex; align-items:center; justify-content:center; color:var(--green-deep);}
+  .fc h3{font-family:var(--serif); font-size:16px; letter-spacing:.05em; margin:0 0 6px; color:var(--green-deep);}
+  .fc p{font-size:11.5px; color:var(--ink-soft); margin:0; line-height:1.7; letter-spacing:.01em;}
+
+  /* ---------- change section ---------- */
+  .change{display:grid; grid-template-columns:.9fr 1.1fr; gap:36px; align-items:center; background:linear-gradient(180deg,#fffdf8,#f4f6ec); border:1px solid var(--line); border-radius:22px; padding:40px 40px;}
+  .phone-wrap{display:flex; justify-content:center;}
+  .phone{width:210px; filter:drop-shadow(0 20px 34px rgba(90,78,50,.2));}
+  .change h2{font-family:var(--serif); font-size:clamp(22px,3.2vw,30px); letter-spacing:.08em; margin:0 0 22px; color:var(--ink);}
+  .point{display:flex; gap:14px; margin-bottom:20px;}
+  .point .chk{width:26px; height:26px; flex-shrink:0; border-radius:50%; background:var(--green); display:flex; align-items:center; justify-content:center; margin-top:2px;}
+  .point h4{font-family:var(--serif); font-size:17px; letter-spacing:.04em; margin:0 0 3px; color:var(--green-deep);}
+  .point p{font-size:13px; color:var(--ink-soft); margin:0; line-height:1.75;}
+
+  /* ---------- steps + voices ---------- */
+  .use-grid{display:grid; grid-template-columns:1.55fr 1fr; gap:28px; align-items:start;}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .step{position:relative; background:var(--card); border:1px solid var(--line-soft); border-radius:14px; padding:24px 18px 20px; text-align:center;}
+  .step .n{width:30px; height:30px; border-radius:50%; background:var(--green-deep); color:#fff; font-family:var(--serif); font-size:15px; display:flex; align-items:center; justify-content:center; margin:0 auto 14px;}
+  .step .si{width:52px; height:52px; margin:0 auto 12px; color:var(--gold-deep);}
+  .step h4{font-family:var(--serif); font-size:15px; letter-spacing:.04em; margin:0 0 8px; color:var(--ink);}
+  .step p{font-size:11.5px; color:var(--ink-soft); margin:0; line-height:1.7;}
+  .voices{background:var(--green-soft); border:1px solid var(--green-line); border-radius:16px; padding:22px 20px;}
+  .voices h3{font-family:var(--serif); font-size:16px; letter-spacing:.06em; margin:0 0 16px; color:var(--green-deep); text-align:center;}
+  .voice{display:flex; gap:11px; margin-bottom:14px;}
+  .voice:last-child{margin-bottom:0;}
+  .voice .av{width:34px; height:34px; flex-shrink:0; border-radius:50%; background:#fff; border:1px solid var(--green-line); display:flex; align-items:center; justify-content:center; color:var(--green); }
+  .voice .bubble{background:#fff; border:1px solid var(--line-soft); border-radius:12px; padding:9px 13px; font-size:12px; color:var(--ink-soft); line-height:1.6;}
+  .voice .who{display:block; font-size:10px; color:var(--ink-faint); margin-top:3px;}
+
+  /* ---------- CTA ---------- */
+  .cta{max-width:1080px; margin:64px auto 0; padding:0 22px;}
+  .cta-in{background:linear-gradient(135deg,#f2efe1,#e9efdd); border:1px solid var(--line); border-radius:22px; padding:44px 44px; display:grid; grid-template-columns:1fr 1.15fr; gap:34px; align-items:center;}
+  .cta-left h2{font-family:var(--serif); font-size:clamp(20px,2.6vw,26px); letter-spacing:.06em; line-height:1.5; margin:0 0 12px; color:var(--ink);}
+  .cta-left p{font-size:13px; color:var(--ink-soft); margin:0; line-height:1.85;}
+  .cta-box{background:var(--card); border:1px solid var(--gold-faint); border-radius:16px; padding:28px 28px; text-align:center;}
+  .cta-box .date{font-family:var(--serif); font-size:clamp(19px,2.6vw,24px); letter-spacing:.05em; color:var(--green-deep); margin:0 0 6px;}
+  .cta-box .wait{font-size:12px; color:var(--ink-soft); margin:0 0 18px;}
+  .cta-btn{display:inline-flex; align-items:center; gap:12px; justify-content:center; width:100%; font-size:15.5px; letter-spacing:.04em; color:#fff; padding:16px 26px; border-radius:999px; background:linear-gradient(135deg,var(--gold-soft),var(--gold-deep)); box-shadow:0 10px 24px rgba(140,110,50,.28); transition:filter .2s ease, transform .2s ease;}
+  .cta-btn:hover{filter:brightness(1.06); transform:translateY(-1px);}
+  .cta-btn .arrow{width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,.22); display:flex; align-items:center; justify-content:center;}
+  .cta-note{font-size:11px; color:var(--ink-faint); margin:12px 0 0;}
+
+  /* ---------- footer ---------- */
+  footer{margin-top:66px; border-top:1px solid var(--line-soft); background:var(--paper-warm);}
+  .foot{max-width:1180px; margin:0 auto; padding:30px 22px; display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;}
+  .foot .brand .name{font-size:17px;}
+  .foot nav{margin:0; display:flex; flex-wrap:wrap; gap:8px 22px;}
+  .foot nav a{font-size:12px; color:var(--ink-soft);}
+  .foot nav a:hover{color:var(--green-deep);}
+  .copy{width:100%; text-align:center; font-size:11px; color:var(--ink-faint); letter-spacing:.06em; padding:14px 22px 26px;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    nav.main{display:none;}
+    .hero-grid{grid-template-columns:1fr; gap:26px;}
+    .hero-visual{order:-1;}
+    .five{grid-template-columns:repeat(2,1fr);}
+    .change{grid-template-columns:1fr; gap:26px; padding:30px 24px;}
+    .use-grid{grid-template-columns:1fr;}
+    .cta-in{grid-template-columns:1fr; padding:32px 24px;}
+  }
+  @media (max-width:560px){
+    .bar{gap:10px; padding:11px 16px;}
+    .actions .btn-ghost{display:none;}
+    .brand .name{font-size:18px;}
+    .five{grid-template-columns:1fr 1fr;}
+    .steps{grid-template-columns:1fr;}
+    .badge{width:96px; height:96px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+    .cta-btn{transition:none;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== Header (トップ画面と共通) ===== -->
+  <header>
+    <div class="bar">
+      <a class="brand" href="index.html" aria-label="気学プラットフォーム ホーム">
+        <svg class="rose" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" stroke="var(--gold)" stroke-width="1.3"/>
+          <circle cx="24" cy="24" r="15" stroke="var(--gold-soft)" stroke-width="0.9"/>
+          <path d="M24 3 L27 21 L24 24 L21 21 Z" fill="var(--gold)"/>
+          <path d="M24 45 L21 27 L24 24 L27 27 Z" fill="var(--gold-soft)"/>
+          <path d="M3 24 L21 21 L24 24 L21 27 Z" fill="var(--gold-soft)"/>
+          <path d="M45 24 L27 27 L24 24 L27 21 Z" fill="var(--gold)"/>
+          <circle cx="24" cy="24" r="2.4" fill="var(--gold)"/>
+        </svg>
+        <span class="name">気学プラットフォーム<small>KI-GAKU PLATFORM</small></span>
+      </a>
+      <nav class="main" aria-label="メインナビゲーション">
+        <a href="index.html">ホーム</a>
+        <a class="on" href="shimbun.html">気学鑑定新聞</a>
+        <a href="houi.html">方位アプリ</a>
+      </nav>
+      <div class="actions">
+        <button class="btn-ghost" type="button">ログイン</button>
+        <a class="btn-solid" href="#">会員登録</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="crumb"><a href="index.html">ホーム</a> ＞ 気学鑑定新聞とは</div>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">今日の流れを知り、毎日をもっと楽しむための</p>
+        <h1 class="serif">気学鑑定新聞<span class="q">とは？</span></h1>
+        <div class="rule"></div>
+        <p class="lead">あなたの本命星に合わせた「今日の運勢・吉方・開運のヒント」を、毎朝5時にお届けする、あなただけの開運サポート新聞です。</p>
+      </div>
+      <div class="hero-visual reveal">
+        <!-- 新聞のイラスト（写真は使わずSVGで表現） -->
+        <svg class="paper-art" viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="気学鑑定新聞のイメージ">
+          <rect x="14" y="10" width="272" height="196" rx="4" fill="#fdfbf4" stroke="var(--line)" stroke-width="1.4" transform="rotate(-2 150 108)"/>
+          <g transform="rotate(-2 150 108)">
+            <text x="150" y="52" text-anchor="middle" font-family="'Hiragino Mincho ProN','Yu Mincho',serif" font-size="26" letter-spacing="3" fill="var(--green-deep)">気学鑑定新聞</text>
+            <line x1="34" y1="66" x2="266" y2="66" stroke="var(--gold-soft)" stroke-width="1"/>
+            <line x1="34" y1="70" x2="266" y2="70" stroke="var(--gold-faint)" stroke-width="1"/>
+            <g stroke="var(--line)" stroke-width="1.2">
+              <line x1="40" y1="86" x2="140" y2="86"/><line x1="40" y1="98" x2="140" y2="98"/><line x1="40" y1="110" x2="140" y2="110"/><line x1="40" y1="122" x2="128" y2="122"/>
+              <line x1="40" y1="140" x2="140" y2="140"/><line x1="40" y1="152" x2="140" y2="152"/><line x1="40" y1="164" x2="132" y2="164"/>
+            </g>
+            <rect x="160" y="84" width="100" height="52" rx="3" fill="var(--green-soft)" stroke="var(--green-line)" stroke-width="1"/>
+            <circle cx="186" cy="110" r="15" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+            <path d="M186 98 l3 12 -3 3 -3 -3 z" fill="var(--gold)"/>
+            <g stroke="var(--line)" stroke-width="1.2">
+              <line x1="160" y1="150" x2="260" y2="150"/><line x1="160" y1="162" x2="260" y2="162"/><line x1="160" y1="174" x2="248" y2="174"/>
+            </g>
+          </g>
+        </svg>
+        <div class="badge" aria-label="2026年8月1日サービス開始予定">
+          <span class="y">2026年</span><span class="d">8月1日</span><span class="s">サービス開始予定！</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5つの内容 ===== -->
+  <section class="block">
+    <div class="head reveal"><h2 class="serif">毎朝5時に届く、今日を活かす5つの内容</h2></div>
+    <div class="five">
+      <div class="fc reveal">
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span>
+        <h3>今日の運勢</h3><p>あなたの本命星に合わせた総合運を毎日お届け。</p>
+      </div>
+      <div class="fc reveal">
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1"/></svg></span>
+        <h3>吉方位・凶方位</h3><p>今日の吉方位や、注意したい方位をお知らせ。</p>
+      </div>
+      <div class="fc reveal">
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 21c-1-4-5-5-5-9a5 5 0 0 1 10 0c0 4-4 5-5 9z"/><path d="M12 3v-1M12 12l3-3M12 12l-3-3"/></svg></span>
+        <h3>開運のヒント</h3><p>行動・言葉・過ごし方のアドバイス。</p>
+      </div>
+      <div class="fc reveal">
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 7 3.5C19 15.5 12 20 12 20z"/></svg></span>
+        <h3>今日のメッセージ</h3><p>あなたの星に届く、やさしいメッセージ。</p>
+      </div>
+      <div class="fc reveal">
+        <span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h13l3 3v13H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span>
+        <h3>今日の一言メモ</h3><p>シンプルに今日を記録するスペース。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 毎日が変わる ===== -->
+  <section class="block">
+    <div class="change reveal">
+      <div class="phone-wrap">
+        <svg class="phone" viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="スマートフォンで新聞を読むイメージ">
+          <rect x="6" y="6" width="188" height="388" rx="30" fill="#2a2622"/>
+          <rect x="14" y="14" width="172" height="372" rx="24" fill="#fdfbf4"/>
+          <rect x="76" y="22" width="48" height="7" rx="3.5" fill="#2a2622"/>
+          <text x="100" y="62" text-anchor="middle" font-family="'Hiragino Mincho ProN','Yu Mincho',serif" font-size="17" letter-spacing="2" fill="var(--green-deep)">気学鑑定新聞</text>
+          <line x1="30" y1="74" x2="170" y2="74" stroke="var(--gold-soft)" stroke-width="1"/>
+          <text x="30" y="98" font-family="'Hiragino Mincho ProN','Yu Mincho',serif" font-size="12" fill="var(--ink-soft)">今日の運勢</text>
+          <g stroke="var(--line)" stroke-width="1.4"><line x1="30" y1="112" x2="170" y2="112"/><line x1="30" y1="126" x2="170" y2="126"/><line x1="30" y1="140" x2="150" y2="140"/></g>
+          <rect x="30" y="158" width="140" height="46" rx="6" fill="var(--green-soft)" stroke="var(--green-line)"/>
+          <circle cx="52" cy="181" r="13" fill="none" stroke="var(--gold)" stroke-width="1.3"/><path d="M52 171l3 10-3 3-3-3z" fill="var(--gold)"/>
+          <g stroke="var(--line)" stroke-width="1.4"><line x1="30" y1="224" x2="170" y2="224"/><line x1="30" y1="238" x2="170" y2="238"/><line x1="30" y1="252" x2="170" y2="252"/><line x1="30" y1="266" x2="150" y2="266"/><line x1="30" y1="288" x2="170" y2="288"/><line x1="30" y1="302" x2="160" y2="302"/></g>
+        </svg>
+      </div>
+      <div>
+        <h2 class="serif">気学鑑定新聞で、毎日が変わる</h2>
+        <div class="point">
+          <span class="chk" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+          <div><h4>自分の星の流れがわかるから、迷いが減る</h4><p>良い日も注意の日も、事前に知ることで心の準備ができます。</p></div>
+        </div>
+        <div class="point">
+          <span class="chk" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+          <div><h4>小さな開運行動で、毎日が楽しくなる</h4><p>無理なく続けられるヒントが、あなたの一日を支えます。</p></div>
+        </div>
+        <div class="point">
+          <span class="chk" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+          <div><h4>続けることで、自分の流れが見えてくる</h4><p>半年後には「続けられた証」が、あなたの力になります。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 使い方 + 利用者の声 ===== -->
+  <section class="block">
+    <div class="head reveal"><h2 class="serif">とてもシンプルな使い方</h2></div>
+    <div class="use-grid">
+      <div class="steps">
+        <div class="step reveal">
+          <span class="n serif">1</span>
+          <svg class="si" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30h32M13 30a11 11 0 0 1 22 0"/><path d="M24 12v-3M12 16l-2-2M36 16l2-2"/><path d="M10 36l6 4 8-3 8 3 6-4"/></svg>
+          <h4>毎朝5時に新聞が届く</h4><p>メールまたはアプリで、あなただけの新聞をお届けします。</p>
+        </div>
+        <div class="step reveal">
+          <span class="n serif">2</span>
+          <svg class="si" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40c9-4 12-11 12-18a12 12 0 0 0-24 0c0 7 3 14 12 18z"/><path d="M24 24v-6M24 24l5-4M24 24l-5-4"/></svg>
+          <h4>今日を活かす</h4><p>運勢や吉方位、開運のヒントを参考に、行動や予定を整えます。</p>
+        </div>
+        <div class="step reveal">
+          <span class="n serif">3</span>
+          <svg class="si" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M34 24a11 11 0 1 1-8-10.6A9 9 0 0 0 34 24z"/><path d="M12 40h24"/></svg>
+          <h4>夜に振り返り、記録する</h4><p>夜に今日の出来事や気づきを記録。未来の自分の宝物になります。</p>
+        </div>
+      </div>
+      <aside class="voices reveal">
+        <h3>利用者の声（予定）</h3>
+        <div class="voice"><span class="av"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3-5 7-5s7 1.5 7 5"/></svg></span><div class="bubble">毎朝読むのが楽しみになりました！<span class="who">40代 女性</span></div></div>
+        <div class="voice"><span class="av"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3-5 7-5s7 1.5 7 5"/></svg></span><div class="bubble">気学をもっと身近に感じられます<span class="who">50代 男性</span></div></div>
+        <div class="voice"><span class="av"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3-5 7-5s7 1.5 7 5"/></svg></span><div class="bubble">続けることで、自分の軸ができました<span class="who">60代 女性</span></div></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta">
+    <div class="cta-in reveal">
+      <div class="cta-left">
+        <h2 class="serif">あなたの毎日が、<br>もっと楽しく、もっと輝くために。</h2>
+        <p>気学鑑定新聞は、あなたの人生を応援するやさしいパートナーです。</p>
+      </div>
+      <div class="cta-box">
+        <p class="date serif">2026年8月1日 サービス開始予定！</p>
+        <p class="wait">開始まで、今しばらくお待ちください。</p>
+        <a class="cta-btn" href="#">
+          <span>会員登録してお知らせを受け取る</span>
+          <span class="arrow" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <p class="cta-note">登録いただくと、開始時にご案内をお送りします。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer (トップ画面と共通) ===== -->
+  <footer>
+    <div class="foot">
+      <span class="brand">
+        <svg class="rose" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" stroke="var(--gold)" stroke-width="1.3"/>
+          <path d="M24 3 L27 21 L24 24 L21 21 Z" fill="var(--gold)"/><path d="M24 45 L21 27 L24 24 L27 27 Z" fill="var(--gold-soft)"/>
+          <path d="M3 24 L21 21 L24 24 L21 27 Z" fill="var(--gold-soft)"/><path d="M45 24 L27 27 L24 24 L27 21 Z" fill="var(--gold)"/>
+        </svg>
+        <span class="name">気学プラットフォーム<small>KI-GAKU PLATFORM</small></span>
+      </span>
+      <nav aria-label="フッターリンク">
+        <a href="#">ご利用ガイド</a><a href="#">利用規約</a><a href="#">プライバシーポリシー</a>
+        <a href="#">特定商取引法に基づく表記</a><a href="#">お問い合わせ</a>
+      </nav>
+    </div>
+    <p class="copy">© 2026 Ki-gaku Platform. All Rights Reserved.</p>
+  </footer>
+
+</div>
+
+<script>
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.1});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay = (Math.min(i,6)*60)+'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
