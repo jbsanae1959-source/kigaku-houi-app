@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>気学プラットフォーム ｜ 今日という時間と、これから向かう場所を、楽しみながら活かす。</title>
+<meta name="description" content="今日を活かす『気学鑑定新聞』と、場所を活かす『方位アプリ』。気学の知恵で、よりよい毎日と未来を。">
+<style>
+  :root{
+    --paper:#faf8f2; --paper-warm:#f4efe3; --card:#fffdf8;
+    --ink:#2a2622; --ink-soft:#5b544a; --ink-faint:#8a8172;
+    --line:#e0d7c4; --line-soft:#ece5d6;
+    --green:#5f7d4f; --green-deep:#3e5636; --green-soft:#eef2e6; --green-line:#cdd8bd;
+    --blue:#3a5c7d; --blue-deep:#294763; --blue-soft:#e9eef4; --blue-line:#c3d1de;
+    --gold:#b18f47; --gold-soft:#c9ad6e; --gold-faint:#e7dcc2;
+    --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP",serif;
+    --gothic:"Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--gothic); line-height:1.75;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  a{color:inherit; text-decoration:none;}
+  .serif{font-family:var(--serif);}
+
+  /* faint paper grain */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background-image:radial-gradient(rgba(150,135,100,.05) 1px,transparent 1px);
+    background-size:4px 4px;
+  }
+  .page{position:relative; z-index:1;}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(250,248,242,.9); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .bar{
+    max-width:1180px; margin:0 auto; padding:12px 22px;
+    display:flex; align-items:center; gap:18px;
+  }
+  .brand{display:flex; align-items:center; gap:11px;}
+  .brand .rose{width:38px; height:38px; flex-shrink:0;}
+  .brand .name{font-family:var(--serif); font-size:20px; letter-spacing:.1em; line-height:1.2;}
+  .brand .name small{display:block; font-family:var(--gothic); font-size:9.5px; letter-spacing:.34em; color:var(--gold); font-weight:600; margin-top:2px;}
+  nav{display:flex; align-items:center; gap:26px; margin-left:24px;}
+  nav a{font-size:13.5px; letter-spacing:.05em; color:var(--ink-soft); padding:6px 0; position:relative;}
+  nav a.on{color:var(--ink);}
+  nav a.on::after{content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--gold);}
+  nav a:hover{color:var(--ink);}
+  .actions{margin-left:auto; display:flex; align-items:center; gap:10px;}
+  .btn-ghost{
+    font-size:12.5px; letter-spacing:.05em; padding:9px 16px; border-radius:999px;
+    border:1px solid var(--line); color:var(--ink-soft); background:transparent; cursor:pointer;
+  }
+  .btn-ghost:hover{border-color:var(--gold-soft); color:var(--ink);}
+  .btn-solid{
+    font-size:12.5px; letter-spacing:.05em; padding:9px 17px; border-radius:999px;
+    color:#fff; background:linear-gradient(135deg,var(--green),var(--green-deep));
+    border:none; cursor:pointer; box-shadow:0 4px 12px rgba(62,86,54,.22);
+  }
+  .btn-solid:hover{filter:brightness(1.05);}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; text-align:center; padding:78px 22px 66px;}
+  .hero-bg{position:absolute; inset:0; z-index:0;}
+  .glow-r{position:absolute; top:-10%; right:-6%; width:60%; height:120%;
+    background:radial-gradient(closest-side, rgba(232,196,132,.5), rgba(232,196,132,0) 70%);}
+  .glow-l{position:absolute; top:-18%; left:-10%; width:52%; height:110%;
+    background:radial-gradient(closest-side, rgba(150,178,120,.38), rgba(150,178,120,0) 72%);}
+  .hero-rose{position:absolute; top:50%; right:4%; transform:translateY(-50%); width:min(480px,42vw); opacity:.16; color:var(--gold);}
+  .hero-inner{position:relative; z-index:1; max-width:900px; margin:0 auto;}
+  .hero h1{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(30px,5.2vw,52px); line-height:1.5; letter-spacing:.06em; margin:0;
+  }
+  .hero h1 .em{color:var(--green-deep);}
+  .hero .sub{
+    font-family:var(--serif); font-size:clamp(15px,2.2vw,20px); letter-spacing:.12em;
+    color:var(--ink-soft); margin:20px 0 0;
+  }
+  .hero .rule{width:56px; height:1px; background:var(--gold-soft); margin:26px auto 0;}
+
+  /* ---------- pillars ---------- */
+  .pillars{
+    max-width:1080px; margin:-8px auto 0; padding:0 22px 8px;
+    display:grid; grid-template-columns:1fr 1fr; gap:26px;
+  }
+  .pillar{
+    position:relative; border-radius:18px; overflow:hidden; padding:34px 32px 32px;
+    background:var(--card); border:1px solid var(--line); box-shadow:0 10px 30px rgba(90,78,50,.08);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .pillar:hover{transform:translateY(-4px); box-shadow:0 16px 40px rgba(90,78,50,.14);}
+  .pillar .wash{position:absolute; inset:0; z-index:0; opacity:.9;}
+  .p-today .wash{background:radial-gradient(120% 90% at 88% 12%, rgba(150,178,120,.28), transparent 60%);}
+  .p-place .wash{background:radial-gradient(120% 90% at 88% 12%, rgba(120,150,185,.26), transparent 60%);}
+  .pillar > *{position:relative; z-index:1;}
+  .p-icon{width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:16px;}
+  .p-today .p-icon{background:var(--green-soft); color:var(--green-deep); border:1px solid var(--green-line);}
+  .p-place .p-icon{background:var(--blue-soft); color:var(--blue-deep); border:1px solid var(--blue-line);}
+  .p-eyebrow{font-size:12.5px; letter-spacing:.08em; color:var(--ink-soft); margin-bottom:4px;}
+  .p-title{font-family:var(--serif); font-size:clamp(28px,3.6vw,38px); letter-spacing:.06em; line-height:1.25; margin:0 0 12px;}
+  .p-today .p-title{color:var(--green-deep);}
+  .p-place .p-title{color:var(--blue-deep);}
+  .p-pill{display:inline-block; font-size:13px; letter-spacing:.1em; padding:5px 16px; border-radius:999px; margin-bottom:14px;}
+  .p-today .p-pill{background:#fff; color:var(--green-deep); border:1px solid var(--green-line);}
+  .p-place .p-pill{background:#fff; color:var(--blue-deep); border:1px solid var(--blue-line);}
+  .p-desc{font-size:14px; color:var(--ink-soft); letter-spacing:.02em; margin:0 0 22px; max-width:26em;}
+  .p-cta{
+    display:inline-flex; align-items:center; gap:12px; width:100%; justify-content:space-between;
+    font-size:15.5px; letter-spacing:.06em; color:#fff; padding:15px 24px; border-radius:999px;
+    transition:filter .2s ease, transform .2s ease;
+  }
+  .p-today .p-cta{background:linear-gradient(135deg,var(--green),var(--green-deep)); box-shadow:0 8px 20px rgba(62,86,54,.26);}
+  .p-place .p-cta{background:linear-gradient(135deg,var(--blue),var(--blue-deep)); box-shadow:0 8px 20px rgba(41,71,99,.26);}
+  .p-cta:hover{filter:brightness(1.06); transform:translateX(2px);}
+  .p-cta .arrow{width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+
+  /* ---------- values ---------- */
+  .values{max-width:1000px; margin:56px auto 0; padding:0 22px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .value{display:flex; gap:14px; align-items:flex-start; padding:20px 20px; background:var(--paper-warm); border-radius:14px; border:1px solid var(--line-soft);}
+  .v-ic{width:44px; height:44px; flex-shrink:0; border-radius:50%; border:1.5px solid var(--gold-soft); display:flex; align-items:center; justify-content:center; color:var(--gold);}
+  .v-t{font-family:var(--serif); font-size:17px; letter-spacing:.06em; margin:0 0 3px; color:var(--green-deep);}
+  .v-d{font-size:12.5px; color:var(--ink-soft); margin:0; letter-spacing:.02em; line-height:1.65;}
+
+  /* ---------- about ---------- */
+  .about{max-width:1000px; margin:60px auto 0; padding:44px 40px; background:linear-gradient(180deg,#fffdf8,#f6f1e5); border:1px solid var(--line); border-radius:20px; text-align:center;}
+  .about h2{font-family:var(--serif); font-size:clamp(22px,3vw,30px); letter-spacing:.1em; margin:0 0 8px;}
+  .about .swash{width:44px; height:1px; background:var(--gold-soft); margin:0 auto 22px;}
+  .about p{font-size:14.5px; color:var(--ink-soft); letter-spacing:.03em; max-width:44em; margin:0 auto; line-height:1.95;}
+  .about .today-future{display:inline-flex; gap:10px; margin-top:26px; align-items:center; font-family:var(--serif); letter-spacing:.14em; color:var(--gold);}
+  .about .today-future span{border:1px solid var(--gold-faint); border-radius:8px; padding:6px 16px; background:#fff; color:var(--ink-soft); font-size:14px;}
+
+  /* ---------- footer ---------- */
+  footer{margin-top:64px; border-top:1px solid var(--line-soft); background:var(--paper-warm);}
+  .foot{max-width:1180px; margin:0 auto; padding:30px 22px; display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;}
+  .foot .brand .name{font-size:17px;}
+  .foot nav{margin:0; flex-wrap:wrap; gap:8px 22px;}
+  .foot nav a{font-size:12px;}
+  .copy{width:100%; text-align:center; font-size:11px; color:var(--ink-faint); letter-spacing:.06em; padding:14px 22px 26px;}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    nav{display:none;}
+    .pillars{grid-template-columns:1fr; gap:18px; margin-top:6px;}
+    .values{grid-template-columns:1fr;}
+    .hero{padding:56px 20px 48px;}
+    .about{padding:34px 22px; margin-left:14px; margin-right:14px;}
+  }
+  @media (max-width:520px){
+    .bar{gap:10px; padding:11px 16px;}
+    .actions .btn-ghost{display:none;}
+    .brand .name{font-size:18px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    html{scroll-behavior:auto;}
+    .pillar,.p-cta{transition:none;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="bar">
+      <a class="brand" href="index.html" aria-label="気学プラットフォーム ホーム">
+        <svg class="rose" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" stroke="var(--gold)" stroke-width="1.3"/>
+          <circle cx="24" cy="24" r="15" stroke="var(--gold-soft)" stroke-width="0.9"/>
+          <path d="M24 3 L27 21 L24 24 L21 21 Z" fill="var(--gold)"/>
+          <path d="M24 45 L21 27 L24 24 L27 27 Z" fill="var(--gold-soft)"/>
+          <path d="M3 24 L21 21 L24 24 L21 27 Z" fill="var(--gold-soft)"/>
+          <path d="M45 24 L27 27 L24 24 L27 21 Z" fill="var(--gold)"/>
+          <circle cx="24" cy="24" r="2.4" fill="var(--gold)"/>
+        </svg>
+        <span class="name">気学プラットフォーム<small>KI-GAKU PLATFORM</small></span>
+      </a>
+      <nav aria-label="メインナビゲーション">
+        <a class="on" href="index.html">ホーム</a>
+        <a href="shimbun.html">気学鑑定新聞</a>
+        <a href="houi.html">方位アプリ</a>
+      </nav>
+      <div class="actions">
+        <button class="btn-ghost" type="button">マイページ</button>
+        <button class="btn-solid" type="button">ログイン / 会員登録</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="glow-l"></div>
+      <div class="glow-r"></div>
+      <svg class="hero-rose" viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="96" stroke="currentColor" stroke-width="1"/>
+        <circle cx="100" cy="100" r="70" stroke="currentColor" stroke-width="0.7"/>
+        <circle cx="100" cy="100" r="44" stroke="currentColor" stroke-width="0.7"/>
+        <g stroke="currentColor" stroke-width="0.7">
+          <line x1="100" y1="4" x2="100" y2="196"/><line x1="4" y1="100" x2="196" y2="100"/>
+          <line x1="32" y1="32" x2="168" y2="168"/><line x1="168" y1="32" x2="32" y2="168"/>
+        </g>
+        <path d="M100 8 L108 92 L100 100 L92 92 Z" fill="currentColor" opacity=".7"/>
+        <path d="M100 192 L92 108 L100 100 L108 108 Z" fill="currentColor" opacity=".45"/>
+      </svg>
+    </div>
+    <div class="hero-inner reveal">
+      <h1 class="serif">今日という時間と、これから向かう場所を<br><span class="em">楽しみながら活かす。</span></h1>
+      <p class="sub">気学の知恵で、よりよい毎日と未来を。</p>
+      <div class="rule"></div>
+    </div>
+  </section>
+
+  <!-- ===== Two pillars ===== -->
+  <section class="pillars" aria-label="二つの柱">
+
+    <!-- 今日を活かす -->
+    <article class="pillar p-today reveal">
+      <div class="wash"></div>
+      <div class="p-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/><path d="M7.5 13h4M7.5 16.5h9"/>
+        </svg>
+      </div>
+      <p class="p-eyebrow">今日の運気・吉方・開運のヒントを知る</p>
+      <h2 class="p-title serif">今日を活かす</h2>
+      <span class="p-pill serif">気学鑑定新聞</span>
+      <p class="p-desc">毎日の運勢や開運アドバイス、あなたへのメッセージをお届けします。</p>
+      <a class="p-cta" href="shimbun.html">
+        <span>気学鑑定新聞を読む</span>
+        <span class="arrow" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </article>
+
+    <!-- 場所を活かす -->
+    <article class="pillar p-place reveal">
+      <div class="wash"></div>
+      <div class="p-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1"/>
+        </svg>
+      </div>
+      <p class="p-eyebrow">行き先の吉凶・方位の力を調べる</p>
+      <h2 class="p-title serif">場所を活かす</h2>
+      <span class="p-pill serif">方位アプリ</span>
+      <p class="p-desc">旅行・引越し・移転・出張など、大切な行き先の方位をサポートします。</p>
+      <a class="p-cta" href="houi.html">
+        <span>方位を調べる</span>
+        <span class="arrow" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </article>
+  </section>
+
+  <!-- ===== Values ===== -->
+  <section class="values" aria-label="特長">
+    <div class="value reveal">
+      <span class="v-ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+      <div><p class="v-t">わかりやすい</p><p class="v-d">気学の専門知識を、やさしく、わかりやすく。</p></div>
+    </div>
+    <div class="value reveal">
+      <span class="v-ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 20s-7-4.5-7-9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 7 3.5C19 15.5 12 20 12 20z"/></svg></span>
+      <div><p class="v-t">いつでも使える</p><p class="v-d">毎日・いつでも・どこでも、あなたの味方に。</p></div>
+    </div>
+    <div class="value reveal">
+      <span class="v-ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V11M12 11c0-3-2-5-6-5 0 4 2 6 6 5zM12 11c0-2.5 2-4 5-4 0 3.5-2 5-5 4z"/></svg></span>
+      <div><p class="v-t">未来を応援する</p><p class="v-d">あなたらしい未来を、気学の力で応援します。</p></div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section class="about reveal">
+    <h2 class="serif">気学プラットフォームとは</h2>
+    <div class="swash"></div>
+    <p>気学は、時間（いつ）と空間（どこ）を読み解く東洋の知恵です。このプラットフォームでは、「今日を活かす」と「場所を活かす」の二つの視点から、あなたの毎日と未来をやさしくサポートします。</p>
+    <div class="today-future"><span>TODAY</span>→<span>FUTURE</span></div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="foot">
+      <span class="brand">
+        <svg class="rose" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" stroke="var(--gold)" stroke-width="1.3"/>
+          <path d="M24 3 L27 21 L24 24 L21 21 Z" fill="var(--gold)"/><path d="M24 45 L21 27 L24 24 L27 27 Z" fill="var(--gold-soft)"/>
+          <path d="M3 24 L21 21 L24 24 L21 27 Z" fill="var(--gold-soft)"/><path d="M45 24 L27 27 L24 24 L27 21 Z" fill="var(--gold)"/>
+        </svg>
+        <span class="name">気学プラットフォーム<small>KI-GAKU PLATFORM</small></span>
+      </span>
+      <nav aria-label="フッターリンク">
+        <a href="#">ご利用ガイド</a><a href="#">利用規約</a><a href="#">プライバシーポリシー</a>
+        <a href="#">特定商取引法に基づく表記</a><a href="#">お問い合わせ</a>
+      </nav>
+    </div>
+    <p class="copy">© 2026 Ki-gaku Platform. All Rights Reserved.</p>
+  </footer>
+
+</div>
+
+<script>
+  // gentle scroll reveal
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay = (Math.min(i,6)*70)+'ms';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
