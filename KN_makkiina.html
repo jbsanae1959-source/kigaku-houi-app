@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マッキーナさんの気学新聞</title>
+<meta name="robots" content="noindex">
+<style>
+:root{
+  --cream:#FAF8EC;
+  --paper:#FFFEF8;
+  --ink:#31382E;
+  --ink-soft:#5A6455;
+  --green-deep:#2E6B3B;
+  --green-line:#CBDCC2;
+  --green-wash:#EAF3E3;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px 14px;
+  background:
+    radial-gradient(circle at 8% 4%, rgba(160,200,150,.20), transparent 30%),
+    radial-gradient(circle at 95% 8%, rgba(220,210,140,.20), transparent 28%),
+    var(--cream);
+  color:var(--ink);
+  font-family:"Hiragino Sans","ヒラギノ角ゴシック","Noto Sans JP","Yu Gothic",sans-serif;
+  line-height:1.9;
+}
+.box{
+  max-width:520px;
+  width:100%;
+  background:var(--paper);
+  border:1px solid var(--green-line);
+  border-radius:16px;
+  padding:32px 24px;
+  text-align:center;
+  box-shadow:0 6px 26px rgba(90,110,80,.10);
+}
+.serif{
+  font-family:"Hiragino Mincho ProN","Yu Mincho","游明朝",serif;
+}
+h1{
+  margin:0 0 6px;
+  font-size:clamp(24px,6vw,32px);
+  letter-spacing:.10em;
+}
+.member-name{
+  margin:4px 0 2px;
+  font-size:clamp(18px,4.5vw,23px);
+  color:var(--green-deep);
+  font-weight:700;
+}
+.sub{
+  margin:0 0 22px;
+  font-size:13.5px;
+  letter-spacing:.08em;
+  color:var(--green-deep);
+}
+.today{
+  font-size:15px;
+  color:var(--ink-soft);
+  margin:0 0 18px;
+}
+.msg{
+  font-size:clamp(16px,4vw,19px);
+  font-weight:700;
+  margin:0 0 8px;
+}
+.note{
+  font-size:13.5px;
+  color:var(--ink-soft);
+  margin:0 0 22px;
+}
+.links{
+  border-top:1px dotted var(--green-line);
+  padding-top:18px;
+  text-align:left;
+}
+.links h2{
+  font-size:14px;
+  margin:0 0 10px;
+  color:var(--green-deep);
+  letter-spacing:.06em;
+  font-weight:700;
+}
+.links ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.links li{
+  margin-bottom:8px;
+}
+.links a{
+  display:block;
+  background:var(--green-wash);
+  border:1px solid var(--green-line);
+  border-radius:10px;
+  padding:10px 14px;
+  color:var(--green-deep);
+  text-decoration:none;
+  font-size:14.5px;
+  font-weight:700;
+}
+.links a:hover,.links a:focus{
+  background:#DEEBD5;
+}
+.loading{
+  font-size:14px;
+  color:var(--ink-soft);
+}
+[hidden]{
+  display:none !important;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+  <h1 class="serif">気学新聞</h1>
+  <p class="member-name serif">マッキーナさん専用</p>
+  <p class="sub serif">― あなただけの「時の活かし方」がわかる新聞 ―</p>
+
+  <p class="today">今日は <strong id="jst-date">—</strong>（日本時間）</p>
+
+  <p id="redirecting" class="loading" hidden>
+    マッキーナさんの今日の新聞をひらいています…
+  </p>
+
+  <div id="not-ready" hidden>
+    <p class="msg">本日の新聞は準備中です</p>
+    <p class="note">新聞の準備が整いましたら、この同じURLからお読みいただけます。</p>
+  </div>
+
+  <div class="links">
+    <h2>これまでの新聞</h2>
+    <ul>
+      <li><a href="shinbun-001-20260713.html">2026年7月13日（月）の新聞</a></li>
+      <li><a href="shinbun-001-20260714.html">2026年7月14日（火）の新聞</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* 発行済みの新聞一覧。新しい日を追加するときは、ここに1行追加します。 */
+  var ISSUES = {
+    "2026-07-13": "shinbun-001-20260713.html",
+    "2026-07-14": "shinbun-001-20260714.html"
+  };
+
+  /* 日本時間の今日の日付を YYYY-MM-DD で取得 */
+  function todayInTokyo() {
+    try {
+      var s = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Tokyo",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).format(new Date());
+
+      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) {
+        return s;
+      }
+    } catch (e) {
+      /* 古い端末では下の方法を使います */
+    }
+
+    var d = new Date(Date.now() + 9 * 60 * 60 * 1000);
+    var y = d.getUTCFullYear();
+    var m = ("0" + (d.getUTCMonth() + 1)).slice(-2);
+    var day = ("0" + d.getUTCDate()).slice(-2);
+    return y + "-" + m + "-" + day;
+  }
+
+  /*
+   * 動作確認用
+   * ?d=2026-07-13&stay=1 で13日として入口画面を確認
+   * ?d=2026-07-14&stay=1 で14日として入口画面を確認
+   */
+  var params = new URLSearchParams(window.location.search);
+  var forced = params.get("d");
+  var stay = params.get("stay") === "1";
+
+  var today =
+    (forced && /^\d{4}-\d{2}-\d{2}$/.test(forced))
+      ? forced
+      : todayInTokyo();
+
+  var WEEK = ["日", "月", "火", "水", "木", "金", "土"];
+  var parts = today.split("-");
+  var wd = new Date(
+    Date.UTC(+parts[0], +parts[1] - 1, +parts[2])
+  ).getUTCDay();
+
+  document.getElementById("jst-date").textContent =
+    parts[0] + "年" +
+    (+parts[1]) + "月" +
+    (+parts[2]) + "日（" +
+    WEEK[wd] + "）";
+
+  var target = ISSUES[today];
+
+  if (target && !stay) {
+    document.getElementById("redirecting").hidden = false;
+    window.location.replace(target);
+  } else if (target && stay) {
+    document.getElementById("redirecting").hidden = false;
+    document.getElementById("redirecting").textContent =
+      "（テスト表示中）この日の新聞は「" + target + "」です。";
+  } else {
+    document.getElementById("not-ready").hidden = false;
+  }
+})();
+</script>
+
+<noscript>
+  <p style="text-align:center;font-size:14px;">
+    自動で開くにはJavaScriptが必要です。上の一覧から日付を選んでください。
+  </p>
+</noscript>
+</body>
+</html>
