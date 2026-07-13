@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>気学鑑定新聞 No.001｜2026年7月14日（火）</title>
+<meta name="description" content="気学鑑定新聞 No.001 マッキーナさん 2026年7月14日（火）">
+<style>
+:root{
+  --cream:#FAF8EC;
+  --paper:#FFFEF8;
+  --ink:#31382E;
+  --ink-soft:#5A6455;
+  --green-deep:#2E6B3B;
+  --green:#4E8B4C;
+  --green-line:#CBDCC2;
+  --green-wash:#EAF3E3;
+  --yellow-wash:#FBF4D6;
+  --pink-wash:#FBEDEF;
+  --purple-wash:#F1EDF8;
+  --blue-wash:#E9F1F8;
+  --amber:#C9A227;
+}
+
+*{box-sizing:border-box;}
+
+html{ -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  padding:16px 10px 40px;
+  background:
+    radial-gradient(circle at 8% 4%, rgba(160,200,150,.20), transparent 30%),
+    radial-gradient(circle at 95% 8%, rgba(220,210,140,.20), transparent 28%),
+    var(--cream);
+  color:var(--ink);
+  font-family:"Hiragino Sans","ヒラギノ角ゴシック","Noto Sans JP","Yu Gothic","游ゴシック体",sans-serif;
+  line-height:1.85;
+  font-size:15px;
+}
+
+.paper{
+  max-width:1000px;
+  margin:0 auto;
+  background:var(--paper);
+  border:1px solid var(--green-line);
+  border-radius:16px;
+  padding:18px 16px 22px;
+  box-shadow:0 6px 26px rgba(90,110,80,.10);
+}
+
+/* ---------- 見出し共通 ---------- */
+.serif{
+  font-family:"Hiragino Mincho ProN","ヒラギノ明朝 ProN","Yu Mincho","游明朝",serif;
+}
+
+.card{
+  background:
+    radial-gradient(circle at 100% 0%, rgba(200,225,190,.22), transparent 45%),
+    var(--paper);
+  border:1px solid var(--green-line);
+  border-radius:14px;
+  padding:18px 16px;
+  margin-bottom:16px;
+}
+
+/* ---------- ヘッダー ---------- */
+header{
+  position:relative;
+  border-bottom:2px solid var(--green-line);
+  padding-bottom:14px;
+  margin-bottom:18px;
+  overflow:hidden;
+}
+header::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 3% 0%, rgba(150,195,140,.28), transparent 22%),
+    radial-gradient(circle at 99% 92%, rgba(200,215,140,.25), transparent 24%);
+  pointer-events:none;
+}
+.header-inner{
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:10px;
+}
+
+.badge{
+  width:96px;height:96px;
+  border-radius:50%;
+  background:var(--green-deep);
+  color:#fff;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  font-size:13px;line-height:1.4;
+  font-weight:700;
+  text-align:center;
+  box-shadow:0 3px 10px rgba(46,107,59,.30);
+  flex:none;
+}
+
+.title-block{text-align:center;}
+.kicker{
+  font-size:15px;
+  letter-spacing:.14em;
+  color:var(--ink-soft);
+  margin:0 0 2px;
+}
+h1{
+  margin:0;
+  font-size:clamp(30px,7.4vw,56px);
+  letter-spacing:.10em;
+  font-weight:700;
+  color:#1F2B22;
+}
+.subtitle{
+  margin:4px 0 0;
+  font-size:clamp(13px,3vw,18px);
+  letter-spacing:.10em;
+  color:var(--green-deep);
+}
+
+.dateblock{text-align:center;flex:none;}
+.dateblock .y{font-size:14px;color:var(--ink-soft);}
+.dateblock .d{
+  font-size:clamp(20px,4.6vw,30px);
+  font-weight:700;
+  letter-spacing:.02em;
+  color:#1F2B22;
+  white-space:nowrap;
+}
+.dateblock .d small{font-size:.62em;font-weight:400;}
+.no{
+  display:inline-block;
+  margin-top:6px;
+  background:var(--green-deep);
+  color:#fff;
+  border-radius:8px;
+  padding:2px 12px;
+  font-size:14px;
+  letter-spacing:.04em;
+}
+
+/* ---------- 挨拶 ---------- */
+.greeting{
+  display:grid;
+  grid-template-columns:1.6fr 1fr;
+  gap:16px;
+  align-items:stretch;
+}
+.greeting-main{
+  display:grid;
+  grid-template-columns:130px 1fr;
+  gap:14px;
+  align-items:center;
+}
+.sunrise{
+  height:110px;border-radius:10px;
+  border:1px solid var(--green-line);
+  background:
+    radial-gradient(circle at 50% 78%, rgba(255,238,170,.95), rgba(255,247,215,.5) 42%, transparent 62%),
+    linear-gradient(180deg,#EAF2E6 0%, #F6F3D9 58%, #DCE7CE 100%);
+}
+.greeting h2{
+  margin:0 0 6px;
+  font-size:clamp(19px,4.2vw,25px);
+  font-weight:700;
+}
+.greeting p{margin:0;font-size:15px;}
+
+.hitokoto{
+  background:var(--green-wash);
+  border:1px solid var(--green-line);
+  border-radius:12px;
+  padding:12px 14px;
+}
+.hitokoto h3{
+  margin:0 0 6px;
+  font-size:15px;color:var(--green-deep);
+}
+.hitokoto p{margin:0;font-size:14px;}
+
+/* ---------- 今日の主役 ---------- */
+.ribbon{
+  display:inline-block;
+  background:var(--green-deep);
+  color:#fff;
+  padding:7px 20px;
+  border-radius:8px;
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:.08em;
+  margin-bottom:12px;
+}
+.ribbon .crown{color:#F3D77A;margin-left:6px;}
+
+.shuyaku{
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  gap:18px;
+}
+.lead{
+  margin:0 0 14px;
+  font-size:clamp(23px,5.4vw,36px);
+  font-weight:700;
+  line-height:1.5;
+  color:#1F2B22;
+}
+.lead .mark{
+  background:linear-gradient(transparent 62%, rgba(240,214,120,.75) 62%);
+}
+.shuyaku ul{
+  list-style:none;
+  padding:0;margin:14px 0;
+}
+.shuyaku li{
+  padding-left:22px;position:relative;margin-bottom:2px;
+}
+.shuyaku li::before{
+  content:"🌿";position:absolute;left:0;top:0;font-size:13px;
+}
+
+.sprout{
+  border-radius:12px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,248,205,.85), transparent 58%),
+    linear-gradient(180deg,#F3F7E9,#E6EFDD);
+  border:1px solid var(--green-line);
+  padding:10px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.sprout svg{width:100%;height:auto;max-height:220px;display:block;}
+
+.hoshi{
+  margin-top:10px;
+  background:rgba(255,255,255,.86);
+  border:1px solid var(--green-line);
+  border-radius:14px;
+  padding:12px 14px;
+  text-align:center;
+}
+.hoshi h3{margin:0 0 6px;font-size:14px;color:var(--green-deep);}
+.hoshi p{margin:0 0 6px;font-size:13.5px;}
+.hoshi p:last-child{margin-bottom:0;}
+
+/* ---------- 今日やってみること ---------- */
+.action{
+  background:
+    radial-gradient(circle at 0% 100%, rgba(200,225,190,.25), transparent 40%),
+    var(--paper);
+  text-align:center;
+}
+.action .ribbon{margin-bottom:14px;}
+.action-body{
+  display:grid;
+  grid-template-columns:130px 1fr 220px;
+  gap:14px;align-items:center;
+}
+.memo{
+  border:1px dashed var(--green);
+  border-radius:10px;
+  padding:14px 6px;
+  background:var(--yellow-wash);
+  color:var(--green-deep);
+  font-weight:700;
+  line-height:1.4;
+}
+.memo span{display:block;font-size:20px;}
+.action h2{
+  margin:0;
+  font-size:clamp(20px,4.8vw,32px);
+  font-weight:700;
+  line-height:1.6;
+  color:#1F2B22;
+}
+.bubble{
+  background:var(--green-wash);
+  border:1px solid var(--green-line);
+  border-radius:999px;
+  padding:12px 16px;
+  font-size:13.5px;
+  line-height:1.6;
+  text-align:center;
+}
+
+/* ---------- 暮らしのヒント ---------- */
+.hint-title{
+  text-align:center;
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:.12em;
+  color:var(--green-deep);
+  margin:24px 0 14px;
+  position:relative;
+}
+.hint-title::before,.hint-title::after{
+  content:"";position:absolute;top:50%;width:24%;
+  border-top:1px dotted var(--green);
+}
+.hint-title::before{left:0;}
+.hint-title::after{right:0;}
+
+.hints{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+}
+.hint{
+  border-radius:12px;
+  padding:12px;
+  border:1px solid rgba(0,0,0,.06);
+  font-size:13.5px;
+  line-height:1.75;
+}
+.hint h3{
+  margin:0 0 8px;
+  font-size:16px;font-weight:700;
+  display:flex;align-items:center;gap:6px;
+}
+.hint p{margin:0;}
+.hint .icon{font-size:19px;}
+.h-body{background:var(--green-wash);}      .h-body h3{color:#3E7A46;}
+.h-food{background:var(--pink-wash);}       .h-food h3{color:#B4636F;}
+.h-money{background:var(--yellow-wash);}    .h-money h3{color:#A98219;}
+.h-people{background:var(--purple-wash);}   .h-people h3{color:#7A6AA8;}
+.h-place{background:var(--blue-wash);}      .h-place h3{color:#4A7BA0;}
+
+.houi-btn{
+  display:inline-block;
+  margin-top:10px;
+  background:#4A7BA0;
+  color:#fff;
+  text-decoration:none;
+  border-radius:999px;
+  padding:8px 16px;
+  font-size:13.5px;
+  font-weight:700;
+}
+.houi-btn:hover,.houi-btn:focus{background:#3B6484;}
+
+/* ---------- 下部4項目 ---------- */
+.four{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:20px;
+}
+.box{
+  border:1px solid var(--green-line);
+  border-radius:12px;
+  padding:14px;
+  background:var(--paper);
+  font-size:13.5px;
+}
+.box h3{
+  margin:0 0 10px;
+  font-size:15.5px;
+  display:flex;align-items:center;gap:7px;
+}
+.num{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--green-deep);color:#fff;
+  font-size:13px;line-height:22px;text-align:center;
+  flex:none;font-weight:700;
+}
+.box-1 h3{color:var(--green-deep);}
+.box-2 h3{color:#B4636F;} .box-2 .num{background:#B4636F;}
+.box-3 h3{color:#A98219;} .box-3 .num{background:#A98219;}
+.box-4 h3{color:#7A6AA8;} .box-4 .num{background:#7A6AA8;}
+
+.koyomi{list-style:none;margin:0;padding:0;}
+.koyomi li{
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;
+}
+.tag{
+  flex:none;
+  background:var(--green-wash);
+  border:1px solid var(--green-line);
+  border-radius:6px;
+  color:var(--green-deep);
+  font-size:12.5px;
+  padding:1px 8px;
+  letter-spacing:.06em;
+}
+
+.lines{margin:12px 0 0;}
+.lines span{
+  display:block;
+  border-bottom:1px dotted #C4C9BE;
+  height:22px;
+}
+.note-tip{
+  margin-top:12px;
+  border:1px solid #E4C3CA;
+  background:var(--pink-wash);
+  border-radius:999px;
+  text-align:center;
+  font-size:12.5px;
+  padding:5px 8px;
+  color:#A2545F;
+}
+.example{
+  margin-top:12px;
+  background:var(--yellow-wash);
+  border:1px solid #E5D9A8;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+}
+.example .label{color:#A98219;font-weight:700;}
+
+/* ---------- フッター ---------- */
+footer{
+  margin-top:22px;
+  border-top:2px solid var(--green-line);
+  padding-top:16px;
+  text-align:center;
+}
+.closing{
+  font-size:clamp(14px,3.4vw,16.5px);
+  color:#1F2B22;
+  margin:0 0 14px;
+}
+.sign{
+  font-size:14px;
+  color:var(--ink-soft);
+  line-height:1.7;
+}
+.sign strong{display:block;color:var(--green-deep);font-size:15px;}
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width:860px){
+  .hints{grid-template-columns:repeat(2,1fr);}
+  .four{grid-template-columns:repeat(2,1fr);}
+  .shuyaku{grid-template-columns:1fr;}
+  .greeting{grid-template-columns:1fr;}
+  .action-body{grid-template-columns:1fr;}
+  .memo{max-width:180px;margin:0 auto;}
+  .bubble{max-width:340px;margin:0 auto;}
+}
+@media (max-width:640px){
+  body{padding:10px 8px 30px;font-size:14.5px;}
+  .paper{padding:14px 12px 18px;border-radius:12px;}
+  .header-inner{grid-template-columns:1fr;justify-items:center;gap:8px;}
+  .badge{width:78px;height:78px;font-size:11.5px;order:2;}
+  .title-block{order:1;}
+  .dateblock{order:3;}
+  .greeting-main{grid-template-columns:1fr;}
+  .sunrise{height:84px;}
+  .hints{grid-template-columns:1fr;}
+  .four{grid-template-columns:1fr;}
+  .hint-title::before,.hint-title::after{width:14%;}
+}
+
+@media print{
+  body{background:#fff;}
+  .paper{box-shadow:none;border:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="paper">
+
+  <!-- ============ ヘッダー ============ -->
+  <header>
+    <div class="header-inner">
+      <div class="badge">毎朝<br>3分の<br>開運習慣</div>
+
+      <div class="title-block">
+        <p class="kicker serif">時間から学ぶ、暮らしの知恵。</p>
+        <h1 class="serif">気学鑑定新聞</h1>
+        <p class="subtitle serif">― あなただけの毎日新聞 ―</p>
+      </div>
+
+      <div class="dateblock">
+        <div class="y serif">2026年</div>
+        <div class="d serif">7月14日<small>（火）</small></div>
+        <div class="no">No.001</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 挨拶 ============ -->
+  <section class="card greeting">
+    <div class="greeting-main">
+      <div class="sunrise" role="img" aria-label="朝日のイラスト"></div>
+      <div>
+        <h2 class="serif">マッキーナさん、おはようございます。</h2>
+        <p>今日もあなたらしい一日を楽しんでいきましょう。<br>
+           小さな一歩が、未来の流れをつくっていきます。</p>
+      </div>
+    </div>
+
+    <div class="hitokoto">
+      <h3>🍀 今日のひと言</h3>
+      <p>ゆっくりでも、<br>積み重ねたものは<br>ちゃんと残っていきます。</p>
+    </div>
+  </section>
+
+  <!-- ============ 今日の主役 ============ -->
+  <section class="card">
+    <div class="ribbon">今日の主役 <span class="crown">♛</span></div>
+
+    <div class="shuyaku">
+      <div>
+        <h2 class="lead serif">
+          「もっと先へ」より、<br>
+          <span class="mark">「足元をひとつ整える」</span>
+        </h2>
+
+        <p>今日は、あなたの持つ三碧木星の「動く力」に、<br>
+           今日の二黒土星の「整える力」が寄りそう日。<br>
+           昨日ふみ出した一歩を、急がず育てていきましょう。</p>
+
+        <ul>
+          <li>昨日メモしたことに、一行だけ書き足す。</li>
+          <li>机の上を、ひとつだけ片づける。</li>
+          <li>返事を待たせている人に、短く返す。</li>
+        </ul>
+
+        <p>前に進めなくても大丈夫。<br>
+           今日ならした足元が、明日の一歩を軽くします。</p>
+      </div>
+
+      <div class="sprout">
+        <svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="芽が伸びるイラスト">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#FFF6C8"/>
+              <stop offset="100%" stop-color="#FFF6C8" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#9FCB7E"/>
+              <stop offset="100%" stop-color="#4E8B4C"/>
+            </linearGradient>
+            <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#7C6247"/>
+              <stop offset="100%" stop-color="#4E3D2C"/>
+            </linearGradient>
+          </defs>
+
+          <circle cx="130" cy="95" r="95" fill="url(#glow)"/>
+          <path d="M130 175 V95" stroke="#5C8F4E" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M130 118 C 96 118, 74 100, 66 74 C 104 68, 126 88, 130 118 Z" fill="url(#leaf)"/>
+          <path d="M130 110 C 164 108, 188 88, 196 62 C 156 58, 132 80, 130 110 Z" fill="url(#leaf)" opacity=".92"/>
+          <path d="M130 96 C 122 76, 126 58, 140 44 C 152 60, 148 82, 130 96 Z" fill="url(#leaf)" opacity=".85"/>
+          <ellipse cx="130" cy="182" rx="88" ry="24" fill="url(#soil)"/>
+          <ellipse cx="130" cy="176" rx="80" ry="16" fill="#6B543D" opacity=".55"/>
+        </svg>
+
+        <div class="hoshi">
+          <h3>今日の星のメッセージ</h3>
+          <p>二黒土星の「整える・支える・育てる」が力になる日。</p>
+          <p>あなたが丁寧に置いたものは、土の中で、静かに根をのばしています。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 今日やってみること ============ -->
+  <section class="card action">
+    <div class="ribbon">今日やってみること</div>
+
+    <div class="action-body">
+      <div class="memo">✏️<span>Let's<br>try !</span></div>
+
+      <h2 class="serif">昨日はじめたことを、<br>五分だけ続けてみる。</h2>
+
+      <div class="bubble">五分で終えてOK！<br>続いた事実が、明日の自信になります。</div>
+    </div>
+  </section>
+
+  <!-- ============ 今日の暮らしのヒント ============ -->
+  <h2 class="hint-title">今日の暮らしのヒント</h2>
+
+  <section class="hints">
+    <div class="hint h-body">
+      <h3><span class="icon">🏃</span>からだ</h3>
+      <p>深呼吸して、足首をゆっくり回す。<br>地に足がつくと、気持ちも落ち着く日。</p>
+    </div>
+
+    <div class="hint h-food">
+      <h3><span class="icon">🍴</span>食</h3>
+      <p>根菜や豆を、一品添えて。<br>よく噛んで味わうと、体の芯が整います。</p>
+    </div>
+
+    <div class="hint h-money">
+      <h3><span class="icon">👛</span>お金</h3>
+      <p>財布や引き出しを、少し整理してみる日。<br>今あるものを数えると、次の使い道が見えてきます。</p>
+    </div>
+
+    <div class="hint h-people">
+      <h3><span class="icon">👫</span>人とのご縁</h3>
+      <p>昨日声をかけた人の話を、今日は聞く番。<br>聞くことも、ご縁を育てる立派な一歩です。</p>
+    </div>
+
+    <div class="hint h-place">
+      <h3><span class="icon">🧭</span>場所・方位</h3>
+      <p>出かける予定があるなら、方位アプリで今日の行き先を調べてみましょう。</p>
+      <a class="houi-btn" href="houi.html">方位アプリを見る</a>
+    </div>
+  </section>
+
+  <!-- ============ 下部4項目 ============ -->
+  <section class="four">
+
+    <div class="box box-1">
+      <h3><span class="num">1</span>基本情報（今日の暦）</h3>
+      <ul class="koyomi">
+        <li><span class="tag">年の星</span>一白水星（丙午）</li>
+        <li><span class="tag">月の星</span>三碧木星（乙未）</li>
+        <li><span class="tag">日の星</span>二黒土星（己丑）</li>
+        <li><span class="tag">陰　陽</span>陰</li>
+      </ul>
+    </div>
+
+    <div class="box box-2">
+      <h3><span class="num">2</span>今日の振り返りノート</h3>
+      <p>今日、何が嬉しかったですか？<br>心に残ったことを自由に書き留めてみましょう。</p>
+      <div class="lines"><span></span><span></span><span></span></div>
+      <p class="note-tip">夜に書くと、明日がもっと楽しみに♪</p>
+    </div>
+
+    <div class="box box-3">
+      <h3><span class="num">3</span>今日の小さな種</h3>
+      <p>今日は、どんな小さな一歩を始めますか？<br>ひとつだけ書いてみましょう。</p>
+      <div class="example">
+        <span class="label">（例）</span><br>
+        ・友達に連絡する<br>
+        ・10分だけ散歩する<br>
+        ・気になる本を読む
+      </div>
+    </div>
+
+    <div class="box box-4">
+      <h3><span class="num">4</span>あなたへ 💗</h3>
+      <p>あなたは、動きながら人を励ます力を持っています。</p>
+      <p>今日はその力を、少しだけ自分にも向けてみてください。</p>
+      <p>休むことも、育てることのひとつです。</p>
+    </div>
+
+  </section>
+
+  <!-- ============ フッター ============ -->
+  <footer>
+    <p class="closing serif">
+      🍀 どんな日も、時間は流れていきます。<br>
+      その流れを知れば、今日という一日は変えられます。
+    </p>
+    <p class="sign">
+      <strong>気学プラットフォーム</strong>
+      木村早翔
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>
