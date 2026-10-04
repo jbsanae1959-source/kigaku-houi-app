@@ -173,12 +173,15 @@
     <button class="primary-btn" id="confirmBtn">地図で方位を確認する</button>
   </section>
 
-  <!-- STEP 2：地図 -->
-  <section class="step" id="stepB" hidden>
-    <div class="step-head"><span class="step-num">2</span><span class="step-title">地図で方位を確認しましょう</span></div>
-    <div id="map"></div>
-    <div class="dir-readout">この場所は自宅から見て <b id="dirReadout">―</b> の方角です</div>
-  </section>
+ <!-- STEP 2：地図 -->
+<section class="step" id="stepB" hidden>
+  <div class="step-head"><span class="step-num">2</span><span class="step-title">地図で方位を確認しましょう</span></div>
+  <div id="map"></div>
+  <div class="dir-readout">この場所は自宅から見て <b id="dirReadout">―</b> の方角です</div>
+  
+  <button type="button" id="backToStepABtn">← 戻る</button>
+  <button class="primary-btn" id="toStepCBtn">次へ</button>
+</section>
 
   <!-- STEP 3：年月・生年月日 -->
   <section class="step" id="stepC" hidden>
@@ -221,6 +224,8 @@
     <div class="field-note">
       ご家族で引っ越しされる方はご相談くださいね。
     </div>
+   <button type="button" id="backToStepBBtn">← 戻る</button>
+   <button class="primary-btn" id="judgeBtn">判定する</button>
   </section>
 
   <!-- STEP 4：結果 -->
@@ -475,7 +480,7 @@ async function onConfirmAddresses(){
   if(ok && homeGeo && destGeo){
     computeDirectionAndShowMap();
     revealStep($('stepB'));
-    revealStep($('stepC'));
+   
   }
 }
 
@@ -573,12 +578,6 @@ function buildSelectors(){
     o.textContent=d+'日';
     bd.appendChild(o);
   }
-
-  ys.addEventListener('change', updateResultIfReady);
-  ms.addEventListener('change', updateResultIfReady);
-  by.addEventListener('change', updateResultIfReady);
-  bm.addEventListener('change', updateResultIfReady);
-  bd.addEventListener('change', updateResultIfReady);
 }
 function updateResultIfReady(){
   if(!currentDir || !CAL) return;
@@ -625,6 +624,10 @@ function updateResultIfReady(){
   buildSelectors();
   await loadCalendar();
   $('confirmBtn').addEventListener('click', onConfirmAddresses);
+  $('toStepCBtn').addEventListener('click', ()=>revealStep($('stepC')));
+  $('backToStepABtn').addEventListener('click', ()=>$('stepA').scrollIntoView({behavior:'smooth'}));
+  $('backToStepBBtn').addEventListener('click', ()=>$('stepB').scrollIntoView({behavior:'smooth'}));
+  $('judgeBtn').addEventListener('click', updateResultIfReady);
 })();
 </script>
 </body>
