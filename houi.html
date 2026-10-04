@@ -180,13 +180,46 @@
     <div class="dir-readout">この場所は自宅から見て <b id="dirReadout">―</b> の方角です</div>
   </section>
 
-  <!-- STEP 3：年月・本命星 -->
+  <!-- STEP 3：年月・生年月日 -->
   <section class="step" id="stepC" hidden>
-    <div class="step-head"><span class="step-num">3</span><span class="step-title">調べたい年月と、あなたの本命星を選んでください</span></div>
+    <div class="step-head">
+      <span class="step-num">3</span>
+      <span class="step-title">調べたい年月と、移動する人の生年月日を入力してください</span>
+    </div>
+
     <div class="sel-row">
-      <div class="sel-field"><label for="selYear">年</label><select id="selYear"></select></div>
-      <div class="sel-field"><label for="selMonth">月</label><select id="selMonth"></select></div>
-      <div class="sel-field"><label for="selHonmei">本命星</label><select id="selHonmei"></select></div>
+      <div class="sel-field">
+        <label for="selYear">調べたい年</label>
+        <select id="selYear"></select>
+      </div>
+
+      <div class="sel-field">
+        <label for="selMonth">月</label>
+        <select id="selMonth"></select>
+      </div>
+    </div>
+
+    <label style="margin-top:18px;">移動する人の生年月日</label>
+
+    <div class="sel-row">
+      <div class="sel-field">
+        <label for="birthYear">年</label>
+        <select id="birthYear"></select>
+      </div>
+
+      <div class="sel-field">
+        <label for="birthMonth">月</label>
+        <select id="birthMonth"></select>
+      </div>
+
+      <div class="sel-field">
+        <label for="birthDay">日</label>
+        <select id="birthDay"></select>
+      </div>
+    </div>
+
+    <div class="field-note">
+      ご家族で引っ越しされる方はご相談くださいね。
     </div>
   </section>
 
@@ -472,26 +505,118 @@ function computeDirectionAndShowMap(){
 }
 
 function buildSelectors(){
+  // 調べたい年月
   const ys=$('selYear');
-  const now=new Date(); const curY=now.getFullYear(), curM=now.getMonth()+1;
-  for(let y=1926;y<=2060;y++){ const o=document.createElement('option'); o.value=y; o.textContent=y+'年'; if(y===curY) o.selected=true; ys.appendChild(o); }
+  const now=new Date();
+  const curY=now.getFullYear(), curM=now.getMonth()+1;
+
+  for(let y=1926;y<=2060;y++){
+    const o=document.createElement('option');
+    o.value=y;
+    o.textContent=y+'年';
+    if(y===curY) o.selected=true;
+    ys.appendChild(o);
+  }
+
   const ms=$('selMonth');
-  for(let m=1;m<=12;m++){ const o=document.createElement('option'); o.value=m; o.textContent=m+'月'; if(m===curM) o.selected=true; ms.appendChild(o); }
-  const hs=$('selHonmei');
-  const ph=document.createElement('option'); ph.value=''; ph.textContent='選んでください'; ph.disabled=true; ph.selected=true; hs.appendChild(ph);
-  HONMEI_LIST.forEach(h=>{ const o=document.createElement('option'); o.value=h; o.textContent=h; hs.appendChild(o); });
+  for(let m=1;m<=12;m++){
+    const o=document.createElement('option');
+    o.value=m;
+    o.textContent=m+'月';
+    if(m===curM) o.selected=true;
+    ms.appendChild(o);
+  }
+
+  // 移動する人の生年月日
+  const by=$('birthYear');
+  const bm=$('birthMonth');
+  const bd=$('birthDay');
+
+  const phY=document.createElement('option');
+  phY.value='';
+  phY.textContent='年';
+  phY.disabled=true;
+  phY.selected=true;
+  by.appendChild(phY);
+
+  for(let y=1926;y<=2060;y++){
+    const o=document.createElement('option');
+    o.value=y;
+    o.textContent=y+'年';
+    by.appendChild(o);
+  }
+
+  const phM=document.createElement('option');
+  phM.value='';
+  phM.textContent='月';
+  phM.disabled=true;
+  phM.selected=true;
+  bm.appendChild(phM);
+
+  for(let m=1;m<=12;m++){
+    const o=document.createElement('option');
+    o.value=m;
+    o.textContent=m+'月';
+    bm.appendChild(o);
+  }
+
+  const phD=document.createElement('option');
+  phD.value='';
+  phD.textContent='日';
+  phD.disabled=true;
+  phD.selected=true;
+  bd.appendChild(phD);
+
+  for(let d=1;d<=31;d++){
+    const o=document.createElement('option');
+    o.value=d;
+    o.textContent=d+'日';
+    bd.appendChild(o);
+  }
+
   ys.addEventListener('change', updateResultIfReady);
   ms.addEventListener('change', updateResultIfReady);
-  hs.addEventListener('change', updateResultIfReady);
+  by.addEventListener('change', updateResultIfReady);
+  bm.addEventListener('change', updateResultIfReady);
+  bd.addEventListener('change', updateResultIfReady);
 }
-
 function updateResultIfReady(){
-  const honmei=$('selHonmei').value;
-  if(!currentDir || !honmei || !CAL) return;
-  const year=+$('selYear').value, month=+$('selMonth').value;
+  if(!currentDir || !CAL) return;
+
+  // 調べたい年月
+  const year=+$('selYear').value;
+  const month=+$('selMonth').value;
+
+  // 移動する人の生年月日
+  const birthYear=+$('birthYear').value;
+  const birthMonth=+$('birthMonth').value;
+  const birthDay=+$('birthDay').value;
+
+  if(!birthYear || !birthMonth || !birthDay) return;
+
+  // 生年月日から万年暦を引き、本命星（年星）を取得
+  const birthKey=
+    birthYear+'-'+
+    String(birthMonth).padStart(2,'0')+'-'+
+    String(birthDay).padStart(2,'0');
+
+  const birthData=CAL[birthKey];
+  if(!birthData) return;
+
+  const honmei=birthData[0];
+
+  // 調べたい年月の年盤・月盤を取得
   const src=lookupCalendar(year,month);
   if(!src) return;
-  const cells=judgeBoard(src.yearStar, src.yearShi, src.monStar, src.monShi, honmei);
+
+  const cells=judgeBoard(
+    src.yearStar,
+    src.yearShi,
+    src.monStar,
+    src.monShi,
+    honmei
+  );
+
   renderResult(currentDir, cells, honmei);
   revealStep($('stepD'));
 }
