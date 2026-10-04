@@ -220,7 +220,11 @@
         <select id="birthDay"></select>
       </div>
     </div>
-
+    
+    <div class="field-note" id="honmeiDisplay">
+      あなたの本命星：生年月日を入力すると表示されます
+    </div>
+    
     <div class="field-note">
       ご家族で引っ越しされる方はご相談くださいね。
     </div>
@@ -413,6 +417,16 @@ function renderResult(dir, cells, honmei){
         <span class="compass c-east">東</span><span class="compass c-west">西</span>
         <div class="ban">${banHtml}</div>
       </div>
+      <button class="toggle-btn" id="toggleMarks">①〜⑨の意味を見る <span class="arrow">⌄</span></button>
+
+<div class="detail" id="marksBox">
+  ${Object.keys(MARK_INFO).map(mark => `
+    <div style="margin:12px 0; padding-bottom:10px; border-bottom:1px solid #ddd4bd;">
+      <strong>${mark} ${MARK_INFO[mark].title}</strong>
+      <div style="margin-top:5px;">${MARK_INFO[mark].desc}</div>
+    </div>
+  `).join('')}
+</div>
     </div>`;
   document.getElementById('toggleDetail').addEventListener('click', function(){
     const box=document.getElementById('detailBox'); const open=box.classList.toggle('show');
@@ -423,6 +437,14 @@ function renderResult(dir, cells, honmei){
     const frame=document.getElementById('banFrame'); const open=frame.classList.toggle('show');
     this.classList.toggle('open', open);
   });
+  document.getElementById('toggleMarks').addEventListener('click', function(){
+  const box=document.getElementById('marksBox');
+  const open=box.classList.toggle('show');
+  this.classList.toggle('open', open);
+  this.innerHTML = open
+    ? 'とじる <span class="arrow">⌃</span>'
+    : '①〜⑨の意味を見る <span class="arrow">⌄</span>';
+});
 }
 
 /* ==========================================================
@@ -603,7 +625,8 @@ function updateResultIfReady(){
   if(!birthData) return;
 
   const honmei=birthData[0];
-
+  $('honmeiDisplay').textContent='あなたの本命星：'+honmei;
+  
   // 調べたい年月の年盤・月盤を取得
   const src=lookupCalendar(year,month);
   if(!src) return;
