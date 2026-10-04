@@ -401,6 +401,8 @@ function renderResult(dir, cells, honmei){
       (c.marks&&c.marks.length?`<div class="marks">${c.marks.join(' ')}</div>`:'')+`</div>`;
   }).join('');
   document.getElementById('resultRoot').innerHTML = `
+    <div style="text-align:center; margin:6px 0 18px; font-size:15px;">あなたの本命星</div>
+    <div style="text-align:center; margin:-12px 0 22px; font-size:26px; font-weight:700; color:#7a2e22;">${honmei}</div>
     <div class="conclusion">
       <div class="cap">目的地の方位</div>
       <div class="dir">この場所は<b>${dir}</b>にあります</div>
